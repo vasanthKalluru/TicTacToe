@@ -190,7 +190,7 @@ public class Game {
         Move finalMove = new Move(cellToChange,curr_player);
         moves.add(finalMove);
         nextMovePlayerIndex++;
-        nextMovePlayerIndex = nextMovePlayerIndex%board.getSize();
+        nextMovePlayerIndex = nextMovePlayerIndex%players.size();
         if(checkWinner(finalMove)){
             winner= curr_player;
             gameState = GameState.WIN;
@@ -198,6 +198,31 @@ public class Game {
             gameState = GameState.DRAW;
         }
         return;
+    }
+
+
+    public void undo() {
+        if(moves.size()==0){
+            System.out.println("No moves to undo");
+            return;
+        }
+        Move lastMove = moves.get(moves.size()-1);
+        moves.remove(moves.size()-1);
+        Cell cell = lastMove.getCell();
+        cell.setCellState(CellState.EMPTY);
+        cell.setPlayer(null);
+        nextMovePlayerIndex--;
+        nextMovePlayerIndex = (nextMovePlayerIndex+players.size())%players.size();
+
+        for(WinningStrategy winningStrategy: winningStrategies){
+            winningStrategy.handleUndo(board, lastMove);
+        }
+        return;
+
+    }
+
+    public void printBoard() {
+        board.printBoard();
     }
 
 

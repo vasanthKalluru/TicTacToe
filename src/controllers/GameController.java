@@ -30,18 +30,18 @@ public class GameController {
     }
     
     public GameState checkState(Game game) {
-        return null;
+        return game.getGameState();
     }
 
     public Player getWinner(Game game) {
-        return null;
+        return game.getWinner();
     }
 
     public void printBoard(Game game) {
-
+        game.printBoard();
     }
 
     public void undo(Game game) {
-
+        game.undo();
     }
 }

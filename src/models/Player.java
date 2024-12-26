@@ -53,7 +53,8 @@ public class Player {
         System.out.println("please enter the row and column where you want to insert the Symbol.");
         int Row = scanner.nextInt();
         int Column = scanner.nextInt();
-        Cell cell = board.getBoard().get(Row).get(Column);
+//        Cell cell = board.getBoard().get(Row).get(Column);
+        Cell cell = new Cell(Row, Column);
         return new Move(cell,this);
     }
 

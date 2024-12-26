@@ -5,13 +5,13 @@ import models.Game;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        GameController gameController = new GameController();
-        System.out.println("Game Starting");
-        gameController.startGame();
-
-        while(gameController.getStatus().equals(IN_PROGRESS)) {
-            gameController.makeMove();
-            gameController.displayBoard();
-        }
+//        GameController gameController = new GameController();
+//        System.out.println("Game Starting");
+//        gameController.startGame();
+//
+//        while(gameController.getStatus().equals(IN_PROGRESS)) {
+//            gameController.makeMove();
+//            gameController.displayBoard();
+//        }
     }
 }

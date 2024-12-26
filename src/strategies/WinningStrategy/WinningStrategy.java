@@ -1,5 +1,8 @@
 package strategies.WinningStrategy;
 
+import models.Board;
+import models.Move;
+
 public interface WinningStrategy {
-    public boolean checkWinner();
+    public boolean checkWinner(Board board, Move move);
 }

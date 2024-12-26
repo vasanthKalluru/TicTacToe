@@ -152,13 +152,52 @@ public class Game {
     }
 
     private boolean validateMove(Move move) {
-
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+        if(row>=board.getSize() || col>=board.getSize()){
+            return false;
+        }
+        if(board.getBoard().get(row).get(col).getCellState().equals(CellState.EMPTY)){
+            return true;
+        }
+        return false;
     }
+
+    private boolean checkWinner(Move move) {
+        for(WinningStrategy winningStrategy: winningStrategies){
+            if(winningStrategy.checkWinner(board, move)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void makeMove() {
         Player curr_player = players.get(nextMovePlayerIndex);
         System.out.println("It is "+curr_player.getName()+ "'s move please make your move");
-        curr_player.makeMove(board);
+        Move move = curr_player.makeMove(board);
         //validate the move and proceed ahead.
+        System.out.println(curr_player.getName()+" has made a move at row: "+move.getCell().getRow()+" and at col: "+move.getCell().getCol());
+        if(!validateMove(move)){
+            System.out.println("It is not a valid move. please try again");
+            return;
+        }
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+        Cell cellToChange = board.getBoard().get(row).get(col);
+        cellToChange.setCellState(CellState.FILLED);
+        cellToChange.setPlayer(curr_player);
+        Move finalMove = new Move(cellToChange,curr_player);
+        moves.add(finalMove);
+        nextMovePlayerIndex++;
+        nextMovePlayerIndex = nextMovePlayerIndex%board.getSize();
+        if(checkWinner(finalMove)){
+            winner= curr_player;
+            gameState = GameState.WIN;
+        } else if(moves.size()==board.getSize()*board.getSize()){
+            gameState = GameState.DRAW;
+        }
+        return;
     }
 
 

@@ -7,6 +7,18 @@ public class Board {
 
     private List<List<Cell>> board;
 
+    public Board(int size) {
+        this.size = size;
+        this.board = new ArrayList<>(); //[]
+        for(int i = 0; i < size; i++) {
+            board.add(new ArrayList<>()); //[[][][]]
+            for(int j = 0; j < size; j++) {
+                board.get(i).add(new Cell(i, j));//[[0,0,0],[0,0,0],[0,0,0]]
+            }
+        }
+
+    }
+
     public int getSize() {
         return size;
     }

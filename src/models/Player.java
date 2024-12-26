@@ -9,6 +9,14 @@ public class Player {
     private PlayerType playerType;
     private Scanner scanner;
 
+    public Player(Symbol symbol, String name, Long id, PlayerType playerType) {
+        this.symbol = symbol;
+        this.name = name;
+        this.id = id;
+        this.playerType = playerType;
+        this.scanner = new Scanner(System.in); //or use BufferedReader
+    }
+
     public Symbol getSymbol() {
         return symbol;
     }
@@ -41,11 +49,12 @@ public class Player {
         this.playerType = playerType;
     }
 
-    public Scanner getScanner() {
-        return scanner;
+    public Move makeMove(Board board) {
+        System.out.println("please enter the row and column where you want to insert the Symbol.");
+        int Row = scanner.nextInt();
+        int Column = scanner.nextInt();
+        Cell cell = board.getBoard().get(Row).get(Column);
+        return new Move(cell,this);
     }
 
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
-    }
 }
